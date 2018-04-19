@@ -2,9 +2,14 @@ package com.drewstrunk.payroll;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Payroll {
+    private ArrayList<Object> employeeList = new ArrayList<>();
+    private int employeeIDTracker = 1;
+
     public static void main(String[] args) {
         System.out.println("----- ELITE PAYROLL SYSTEM -----");
 
@@ -13,6 +18,7 @@ public class Payroll {
     public void enterEmployees() {
         Scanner reader = new Scanner(System.in);
 
+
         System.out.println("Please enter the number of employees you would like to enter");
         int numberOfEmployees = reader.nextInt();
 
@@ -20,7 +26,6 @@ public class Payroll {
             System.out.println("Enter new Employee Information");
             createNewEmployee();
         }
-
     }
 
     private void createNewEmployee() {
@@ -78,8 +83,9 @@ public class Payroll {
             e.printStackTrace();
         }
 
-        System.out.println("Please enter the Employee's Employee ID");
-        employee.employeeID = reader.nextInt();
+        employee.employeeID = employeeIDTracker;
+        employeeIDTracker++;
 
+        employeeList.add(employee);
     }
 }
