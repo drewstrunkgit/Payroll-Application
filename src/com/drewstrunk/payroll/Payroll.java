@@ -1,91 +1,53 @@
 package com.drewstrunk.payroll;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Payroll {
-    private ArrayList<Object> employeeList = new ArrayList<>();
-    private int employeeIDTracker = 1;
+    private static Scanner reader = new Scanner(System.in);
+    private static EmployeeManager employeeManager = new EmployeeManager();
 
     public static void main(String[] args) {
-        System.out.println("----- ELITE PAYROLL SYSTEM -----");
 
-    }
+        System.out.println("----- PAYROLL SYSTEM -----");
+        if(addEmployees()) {
+            employeeManager.enterEmployees();
+        }
 
-    public void enterEmployees() {
-        Scanner reader = new Scanner(System.in);
+        else {
+            System.out.println("Thanks and have a nice day!");
+        }
 
+        for(Employee employee: employeeManager.employeeList) {
+            employee.pto = employeeManager.calculatePTO(employee.hireDate);
+        }
 
-        System.out.println("Please enter the number of employees you would like to enter");
-        int numberOfEmployees = reader.nextInt();
-
-        for (int i = 0; i < (numberOfEmployees - 1); i++) {
-            System.out.println("Enter new Employee Information");
-            createNewEmployee();
+        if(startPayroll()) {
+            runPayroll();
         }
     }
 
-    private void createNewEmployee() {
-        Scanner reader = new Scanner(System.in);
-        Person person = new Person();
-        Employee employee = new Employee();
+    private static boolean addEmployees() {
+        System.out.println("Would you like to add new employees? (Y/N)");
+        String answer = reader.next();
+        return(answer.equals("Y"));
+    }
 
-        System.out.println("Please enter the Employee's First Name");
-        person.firstName = reader.next();
-        System.out.println("Please enter the Employee's Last Name");
-        person.lastName = reader.next();
+    private static boolean startPayroll() {
+        System.out.println("Would you like to run Payroll? (Y/N)");
+        String answer = reader.next();
+        return(answer.equals("Y"));
+    }
 
-        System.out.println("Please enter the Employee's date of birth (mm-dd-yyyy");
-        String date = reader.next();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mm-dd-yyyy");
-        person.dateOfBirth = null;
-        try {
-            person.dateOfBirth = dateFormat.parse(date);
+    private static void runPayroll() {
+        for (Employee employee: employeeManager.employeeList) {
+            TimeCard timeCard = new TimeCard();
+
+            System.out.println("Please enter " + employee.firstName + " " + employee.lastName + "'s hours worked.");
+            double hoursWorked = reader.nextDouble();
+
+            double grossPay = timeCard.calculateGrossPay(hoursWorked, employee.payRate, employee.salary, employee.exempt);
+
+            timeCard.createTimeCard(employee.employeeID, (employee.firstName + " " + employee.lastName), employee.pto, grossPay, employee.exempt, hoursWorked);
         }
-
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Please enter the Employee's gender (M/F)");
-        person.gender = reader.next();
-        System.out.println("Please enter the Employee's Marital Status");
-        person.maritalStatus = reader.next();
-        System.out.println("Please enter the Employee's Social Security Number (xxx-xx-xxxx");
-        person.socialSecurityNumber = reader.next();
-        System.out.println("Please enter the Employee's Address");
-        person.address = reader.next();
-        System.out.println("Please enter the Employee's Pay Rate (xx.xx");
-        employee.payRate = reader.nextDouble();
-        System.out.println("Please enter the Employee's Exempt Status (Exempt/Non-Exempt)");
-
-        String exemptStatus = reader.next();
-        if (exemptStatus.equals("Exempt")) {
-            employee.exempt = true;
-        }
-
-        else if (exemptStatus.equals("Non-Exempt")) {
-            employee.exempt = false;
-        }
-
-        System.out.println("Please enter the Employee's Hire Date (mm-dd-yyyy)");
-        String hireDate = reader.next();
-        SimpleDateFormat hireDateFormat = new SimpleDateFormat("mm-dd-yyyy");
-        employee.hireDate = null;
-        try {
-            employee.hireDate = hireDateFormat.parse(hireDate);
-        }
-
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        employee.employeeID = employeeIDTracker;
-        employeeIDTracker++;
-
-        employeeList.add(employee);
     }
 }

@@ -1,11 +1,11 @@
 package com.drewstrunk.payroll;
 
-import java.util.Date;
+import org.joda.time.LocalDate;
 
-public class Person {
+class Person {
     String firstName;
     String lastName;
-    Date dateOfBirth;
+    LocalDate dateOfBirth;
     String gender;
     String maritalStatus;
     String socialSecurityNumber;

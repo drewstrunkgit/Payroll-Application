@@ -1,14 +1,13 @@
 package com.drewstrunk.payroll;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
+import org.joda.time.LocalDate;
 
-public class Employee extends Person {
-    double payRate;
-    boolean exempt;
-    Date hireDate;
+class Employee extends Person {
+    LocalDate hireDate;
     int employeeID;
     double pto;
-}
+    boolean exempt;
+    double payRate;
+    int salary;
+    }
+
