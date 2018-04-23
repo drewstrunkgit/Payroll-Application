@@ -1,0 +1,43 @@
+{
+"employees": [
+  {
+    "firstName": "",
+    "lastName": "",
+    "dateOfBirth": "",
+    "gender": "",
+    "maritalStatus": "",
+    "socialSecurityNumber": "",
+    "hireDate": "",
+    "address": "",
+    "exempt": "",
+    "payRate": "",
+    "salary": ""
+	},
+  {
+    "firstName": "",
+    "lastName": "",
+    "dateOfBirth": "",
+    "gender": "",
+    "maritalStatus": "",
+    "socialSecurityNumber": "",
+    "address": "",
+    "hireDate": "",
+    "exempt": "",
+    "payRate": "",
+    "salary": ""
+  },
+	{
+    "firstName" : "",
+    "lastName" : "",
+    "dateOfBirth" : "",
+    "gender" : "",
+    "maritalStatus" : "",
+    "socialSecurityNumber" : "",
+    "address" : "",
+    "hireDate" : "",
+    "exempt" : "",
+    "payRate" : "",
+    "salary" : ""
+    }
+  ]
+}

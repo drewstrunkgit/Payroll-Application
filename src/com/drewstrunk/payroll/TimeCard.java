@@ -3,8 +3,6 @@ package com.drewstrunk.payroll;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
-import static com.sun.tools.javac.util.Constants.format;
-
 class TimeCard {
 
     double calculateGrossPay(double hoursWorked, double payRate, int salary, boolean exempt) {

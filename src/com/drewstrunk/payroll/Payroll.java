@@ -1,12 +1,13 @@
 package com.drewstrunk.payroll;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Payroll {
     private static Scanner reader = new Scanner(System.in);
     private static EmployeeManager employeeManager = new EmployeeManager();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         System.out.println("----- PAYROLL SYSTEM -----");
         if(addEmployees()) {

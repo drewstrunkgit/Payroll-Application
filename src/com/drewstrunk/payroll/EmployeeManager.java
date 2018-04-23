@@ -1,10 +1,14 @@
 package com.drewstrunk.payroll;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,12 +16,22 @@ import java.util.Scanner;
 
 class EmployeeManager {
 
-
     ArrayList<Employee> employeeList = new ArrayList<>();
     private int employeeIDTracker = 1;
 
-    private void createNewEmployee() {
-        Scanner reader = new Scanner(System.in);
+    private void createNewEmployee() throws FileNotFoundException {
+        JsonReader jsonReader = new JsonReader(new FileReader("U:\\Repositories\\Payroll-Application\\Employees.json"));
+        Gson gson = new Gson();
+        Employee employee = gson.fromJson(jsonReader, Employee.class);
+
+        employee.employeeID = employeeIDTracker;
+        employeeIDTracker++;
+
+        employeeList.add(employee);
+        System.out.println(employeeList.toString());
+
+
+   /*     Scanner reader = new Scanner(System.in);
         reader.useDelimiter("\\n");
 
         Employee employee = new Employee();
@@ -62,15 +76,10 @@ class EmployeeManager {
         System.out.println("Please enter the Employee's Hire Date (mm-dd-yyyy)");
         String hireDate = reader.next();
         DateTimeFormatter hireDateFormat = DateTimeFormat.forPattern("M-D-Y");
-        employee.hireDate = hireDateFormat.parseLocalDate(hireDate);
-
-        employee.employeeID = employeeIDTracker;
-        employeeIDTracker++;
-
-        employeeList.add(employee);
+        employee.hireDate = hireDateFormat.parseLocalDate(hireDate);*/
     }
 
-    void enterEmployees() {
+    void enterEmployees() throws FileNotFoundException {
         Scanner reader = new Scanner(System.in);
 
         System.out.println("Please enter the number of employees you would like to add.");
